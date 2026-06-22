@@ -1,76 +1,96 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Olden Flip Clock</title>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <title>Olden Flip Clock</title>
 
-<link rel="stylesheet" href="style.css">
+    <!-- Fonte -->
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap"
+          rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="style.css">
+
 </head>
+
 <body>
 
-<div class="clock">
+    <div class="widget">
 
-    <div class="digit-group">
-        <div class="digit" id="h1"></div>
-        <div class="digit" id="h2"></div>
+        <div class="clock">
+
+            <!-- Horas -->
+            <div class="group">
+
+                <div class="flip-digit"
+                     id="h1">
+
+                </div>
+
+                <div class="flip-digit"
+                     id="h2">
+
+                </div>
+
+            </div>
+
+            <div class="separator">:</div>
+
+            <!-- Minutos -->
+            <div class="group">
+
+                <div class="flip-digit"
+                     id="m1">
+
+                </div>
+
+                <div class="flip-digit"
+                     id="m2">
+
+                </div>
+
+            </div>
+
+            <div class="separator">:</div>
+
+            <!-- Segundos -->
+            <div class="group">
+
+                <div class="flip-digit"
+                     id="s1">
+
+                </div>
+
+                <div class="flip-digit"
+                     id="s2">
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="weekday"
+             id="weekday">
+
+        </div>
+
     </div>
-
-    <div class="separator">:</div>
-
-    <div class="digit-group">
-        <div class="digit" id="m1"></div>
-        <div class="digit" id="m2"></div>
-    </div>
-
-    <div class="separator">:</div>
-
-    <div class="digit-group">
-        <div class="digit" id="s1"></div>
-        <div class="digit" id="s2"></div>
-    </div>
-
-</div>
-
-<div class="weekday" id="weekday"></div>
 
 <script src="script.js"></script>
 
 </body>
-</html>  if (m !== lastM) {
-    document.getElementById("m").innerText = m;
-    addFlip(document.getElementById("m"));
-    lastM = m;
-  }
 
-  if (s !== lastS) {
-    document.getElementById("s").innerText = s;
-    addFlip(document.getElementById("s"));
-    lastS = s;
-  }
-
-  const days = [
-    "Domingo",
-    "Segunda-feira",
-    "Terça-feira",
-    "Quarta-feira",
-    "Quinta-feira",
-    "Sexta-feira",
-    "Sábado"
-  ];
-
-  document.getElementById("dayText").innerText =
-    days[now.getDay()];
-}
-
-setInterval(updateClock, 1000);
-updateClock();
-</script>
-
-</body>
 </html>
