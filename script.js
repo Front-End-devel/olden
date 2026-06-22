@@ -1,82 +1,111 @@
-const week = [
-"DOMINGO",
-"SEGUNDA",
-"TERÇA",
-"QUARTA",
-"QUINTA",
-"SEXTA",
-"SÁBADO"
+const days = [
+    "DOMINGO",
+    "SEGUNDA",
+    "TERÇA",
+    "QUARTA",
+    "QUINTA",
+    "SEXTA",
+    "SÁBADO"
 ];
 
-function createDigit(id){
+// cria estrutura do dígito
+function createDigit(id) {
 
-const container=document.getElementById(id);
+    const el = document.getElementById(id);
 
-const card=document.createElement("div");
-card.className="card";
+    const topStatic = document.createElement("div");
+    const bottomStatic = document.createElement("div");
 
-const top=document.createElement("div");
-top.className="face top";
+    const flipTop = document.createElement("div");
+    const flipBottom = document.createElement("div");
 
-const bottom=document.createElement("div");
-bottom.className="face bottom";
+    topStatic.className = "top-static";
+    bottomStatic.className = "bottom-static";
 
-card.appendChild(top);
-card.appendChild(bottom);
+    flipTop.className = "flip-top";
+    flipBottom.className = "flip-bottom";
 
-container.appendChild(card);
+    el.appendChild(topStatic);
+    el.appendChild(bottomStatic);
+    el.appendChild(flipTop);
+    el.appendChild(flipBottom);
 
-return {
-card,
-top,
-bottom,
-value:null
-};
+    return {
+        topStatic,
+        bottomStatic,
+        flipTop,
+        flipBottom,
+        value: null
+    };
 }
 
-const digits=[
-createDigit("h1"),
-createDigit("h2"),
-createDigit("m1"),
-createDigit("m2"),
-createDigit("s1"),
-createDigit("s2")
+// inicializa dígitos
+const digits = [
+    createDigit("h1"),
+    createDigit("h2"),
+    createDigit("m1"),
+    createDigit("m2"),
+    createDigit("s1"),
+    createDigit("s2")
 ];
 
-function flipDigit(obj,newValue){
+// anima flip de um dígito
+function flip(digit, newValue) {
 
-if(obj.value===newValue) return;
+    if (digit.value === newValue) return;
 
-obj.top.textContent=newValue;
-obj.bottom.textContent=newValue;
+    const oldValue = digit.value ?? newValue;
 
-obj.card.classList.remove("flip");
+    // set valores iniciais
+    digit.topStatic.textContent = oldValue;
+    digit.bottomStatic.textContent = oldValue;
 
-void obj.card.offsetWidth;
+    digit.flipTop.textContent = oldValue;
+    digit.flipBottom.textContent = newValue;
 
-obj.card.classList.add("flip");
+    // reset animação
+    digit.flipTop.classList.remove("animate");
+    digit.flipBottom.classList.remove("animate");
 
-obj.value=newValue;
+    void digit.flipTop.offsetWidth;
+
+    // ativa animação
+    digit.flipTop.classList.add("animate");
+    digit.flipBottom.classList.add("animate");
+
+    // depois da animação, atualiza estado fixo
+    setTimeout(() => {
+        digit.topStatic.textContent = newValue;
+        digit.bottomStatic.textContent = newValue;
+
+        digit.flipTop.classList.remove("animate");
+        digit.flipBottom.classList.remove("animate");
+    }, 350);
+
+    digit.value = newValue;
 }
 
-function updateClock(){
+// atualiza relógio
+function updateClock() {
 
-const now=new Date();
+    const now = new Date();
 
-const h=String(now.getHours()).padStart(2,"0");
-const m=String(now.getMinutes()).padStart(2,"0");
-const s=String(now.getSeconds()).padStart(2,"0");
+    const time = [
+        String(now.getHours()).padStart(2, "0"),
+        String(now.getMinutes()).padStart(2, "0"),
+        String(now.getSeconds()).padStart(2, "0")
+    ].join("").split("");
 
-const values=(h+m+s).split("");
+    digits.forEach((d, i) => {
+        flip(d, time[i]);
+    });
 
-values.forEach((v,i)=>{
-flipDigit(digits[i],v);
-});
-
-document.getElementById("weekday").innerText=
-week[now.getDay()];
+    document.getElementById("weekday").textContent =
+        days[now.getDay()];
 }
 
+// inicia
 updateClock();
 
-setInterval(updateClock,1000);
+// loop
+setInterval(updateClock, 1000);
