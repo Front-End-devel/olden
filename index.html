@@ -1,111 +1,48 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Olden Flip Clock</title>
 
-<title>Flip Clock</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet">
 
-<style>
-  body {
-    margin: 0;
-    background: #999999;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    font-family: 'Inter', sans-serif;
-    color: white;
-  }
-
-  .container {
-    text-align: center;
-  }
-
-  /* ---------------- CLOCK ---------------- */
-  .clock {
-    display: flex;
-    gap: 10px;
-    font-size: 42px;
-    font-weight: 600;
-  }
-
-  .box {
-    background: #111;
-    padding: 14px 16px;
-    border-radius: 10px;
-    min-width: 60px;
-    position: relative;
-    perspective: 200px;
-  }
-
-  .number {
-    display: block;
-    color: white;
-  }
-
-  /* efeito flip simples */
-  .flip {
-    animation: flip 0.4s ease-in-out;
-  }
-
-  @keyframes flip {
-    0% { transform: rotateX(0deg); }
-    50% { transform: rotateX(90deg); }
-    100% { transform: rotateX(0deg); }
-  }
-
-  /* ---------------- DAY ---------------- */
-  .day {
-    margin-top: 14px;
-    font-size: 14px;
-    font-weight: 400;
-    letter-spacing: 1px;
-    color: #fff;
-    opacity: 0.9;
-  }
-</style>
+<link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-<div class="container">
+<div class="clock">
 
-  <div class="clock">
-    <div class="box"><span id="h">00</span></div>
-    <div class="box"><span id="m">00</span></div>
-    <div class="box"><span id="s">00</span></div>
-  </div>
+    <div class="digit-group">
+        <div class="digit" id="h1"></div>
+        <div class="digit" id="h2"></div>
+    </div>
 
-  <div class="day" id="dayText"></div>
+    <div class="separator">:</div>
+
+    <div class="digit-group">
+        <div class="digit" id="m1"></div>
+        <div class="digit" id="m2"></div>
+    </div>
+
+    <div class="separator">:</div>
+
+    <div class="digit-group">
+        <div class="digit" id="s1"></div>
+        <div class="digit" id="s2"></div>
+    </div>
 
 </div>
 
-<script>
-let lastH = "", lastM = "", lastS = "";
+<div class="weekday" id="weekday"></div>
 
-function addFlip(el) {
-  el.classList.remove("flip");
-  void el.offsetWidth; // reinicia animação
-  el.classList.add("flip");
-}
+<script src="script.js"></script>
 
-function updateClock() {
-  const now = new Date();
-
-  let h = String(now.getHours()).padStart(2, "0");
-  let m = String(now.getMinutes()).padStart(2, "0");
-  let s = String(now.getSeconds()).padStart(2, "0");
-
-  if (h !== lastH) {
-    document.getElementById("h").innerText = h;
-    addFlip(document.getElementById("h"));
-    lastH = h;
-  }
-
-  if (m !== lastM) {
+</body>
+</html>  if (m !== lastM) {
     document.getElementById("m").innerText = m;
     addFlip(document.getElementById("m"));
     lastM = m;
